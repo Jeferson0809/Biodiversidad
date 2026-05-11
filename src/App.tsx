@@ -3,158 +3,28 @@ import { useState, useEffect } from 'react';
 // ─── DATA ────────────────────────────────────────────────────────────────────
 
 const SPECIES = [
-  {
-    id: 1,
-    nombre_comun: 'Frailejón',
-    nombre_cientifico: 'Espeletia grandiflora',
-    estado: 'Vulnerable',
-  },
-  {
-    id: 2,
-    nombre_comun: 'Cóndor de los Andes',
-    nombre_cientifico: 'Vultur gryphus',
-    estado: 'Casi amenazado',
-  },
-  {
-    id: 3,
-    nombre_comun: 'Oso de anteojos',
-    nombre_cientifico: 'Tremarctos ornatus',
-    estado: 'Vulnerable',
-  },
-  {
-    id: 4,
-    nombre_comun: 'Danta de montaña',
-    nombre_cientifico: 'Tapirus pinchaque',
-    estado: 'En peligro',
-  },
-  {
-    id: 5,
-    nombre_comun: 'Puma',
-    nombre_cientifico: 'Puma concolor',
-    estado: 'Preocupación menor',
-  },
-  {
-    id: 6,
-    nombre_comun: 'Colibrí del páramo',
-    nombre_cientifico: 'Oxypogon guerinii',
-    estado: 'Vulnerable',
-  },
+  { id: 1, nombre_comun: 'Frailejón', nombre_cientifico: 'Espeletia grandiflora', estado: 'Vulnerable' },
+  { id: 2, nombre_comun: 'Cóndor de los Andes', nombre_cientifico: 'Vultur gryphus', estado: 'Casi amenazado' },
+  { id: 3, nombre_comun: 'Oso de anteojos', nombre_cientifico: 'Tremarctos ornatus', estado: 'Vulnerable' },
+  { id: 4, nombre_comun: 'Danta de montaña', nombre_cientifico: 'Tapirus pinchaque', estado: 'En peligro' },
+  { id: 5, nombre_comun: 'Puma', nombre_cientifico: 'Puma concolor', estado: 'Preocupación menor' },
+  { id: 6, nombre_comun: 'Colibrí del páramo', nombre_cientifico: 'Oxypogon guerinii', estado: 'Vulnerable' },
 ];
 
-const DEGRADATION_TYPES = [
-  'Minería ilegal',
-  'Pastoreo excesivo',
-  'Quema',
-  'Tala',
-  'Contaminación hídrica',
-];
+const DEGRADATION_TYPES = ['Minería ilegal', 'Pastoreo excesivo', 'Quema', 'Tala', 'Contaminación hídrica'];
 
 const INITIAL_RECORDS = [
-  {
-    id: 1,
-    tipo: 'especie',
-    especie: 'Frailejón',
-    lat: 7.112,
-    lng: -72.831,
-    altitud: 3420,
-    fecha: '2026-05-08',
-    hora: '09:14',
-    expedicion: 'EXP-001',
-    notas: 'Colonia de 40+ ejemplares, estado saludable',
-    sync: 'sync',
-    severidad: null,
-    degradacion: null,
-  },
-  {
-    id: 2,
-    tipo: 'degradacion',
-    especie: null,
-    lat: 7.098,
-    lng: -72.845,
-    altitud: 3210,
-    fecha: '2026-05-08',
-    hora: '11:32',
-    expedicion: 'EXP-001',
-    notas: 'Evidencia de pastoreo bovino en zona protegida',
-    sync: 'sync',
-    severidad: 'Alta',
-    degradacion: 'Pastoreo excesivo',
-  },
-  {
-    id: 3,
-    tipo: 'especie',
-    especie: 'Oso de anteojos',
-    lat: 7.125,
-    lng: -72.819,
-    altitud: 3580,
-    fecha: '2026-05-09',
-    hora: '06:45',
-    expedicion: 'EXP-002',
-    notas: 'Rastros frescos, posible hembra con cría',
-    sync: 'pending',
-    severidad: null,
-    degradacion: null,
-  },
-  {
-    id: 4,
-    tipo: 'degradacion',
-    especie: null,
-    lat: 7.087,
-    lng: -72.862,
-    altitud: 2980,
-    fecha: '2026-05-09',
-    hora: '14:20',
-    expedicion: 'EXP-002',
-    notas: 'Maquinaria abandonada, residuos de mercurio',
-    sync: 'pending',
-    severidad: 'Crítica',
-    degradacion: 'Minería ilegal',
-  },
-  {
-    id: 5,
-    tipo: 'especie',
-    especie: 'Colibrí del páramo',
-    lat: 7.135,
-    lng: -72.808,
-    altitud: 3710,
-    fecha: '2026-05-10',
-    hora: '08:00',
-    expedicion: 'EXP-003',
-    notas: 'Avistamiento en floración de Espeletia',
-    sync: 'queue',
-    severidad: null,
-    degradacion: null,
-  },
+  { id: 1, tipo: 'especie', especie: 'Frailejón', lat: 7.112, lng: -72.831, altitud: 3420, fecha: '2026-05-08', hora: '09:14', expedicion: 'EXP-001', notas: 'Colonia de 40+ ejemplares, estado saludable', sync: 'sync', severidad: null, degradacion: null },
+  { id: 2, tipo: 'degradacion', especie: null, lat: 7.098, lng: -72.845, altitud: 3210, fecha: '2026-05-08', hora: '11:32', expedicion: 'EXP-001', notas: 'Evidencia de pastoreo bovino en zona protegida', sync: 'sync', severidad: 'Alta', degradacion: 'Pastoreo excesivo' },
+  { id: 3, tipo: 'especie', especie: 'Oso de anteojos', lat: 7.125, lng: -72.819, altitud: 3580, fecha: '2026-05-09', hora: '06:45', expedicion: 'EXP-002', notas: 'Rastros frescos, posible hembra con cría', sync: 'pending', severidad: null, degradacion: null },
+  { id: 4, tipo: 'degradacion', especie: null, lat: 7.087, lng: -72.862, altitud: 2980, fecha: '2026-05-09', hora: '14:20', expedicion: 'EXP-002', notas: 'Maquinaria abandonada, residuos de mercurio', sync: 'pending', severidad: 'Crítica', degradacion: 'Minería ilegal' },
+  { id: 5, tipo: 'especie', especie: 'Colibrí del páramo', lat: 7.135, lng: -72.808, altitud: 3710, fecha: '2026-05-10', hora: '08:00', expedicion: 'EXP-003', notas: 'Avistamiento en floración de Espeletia', sync: 'queue', severidad: null, degradacion: null },
 ];
 
 const EXPEDITIONS = [
-  {
-    id: 'EXP-001',
-    guardabosque: 'Carlos Pérez',
-    fecha: '2026-05-08',
-    ruta: 'Ruta Norte - Sector Angostura',
-    registros: 2,
-    km: 14.2,
-    estado: 'Completada',
-  },
-  {
-    id: 'EXP-002',
-    guardabosque: 'María López',
-    fecha: '2026-05-09',
-    ruta: 'Ruta Sur - Sector La Baja',
-    registros: 2,
-    km: 18.7,
-    estado: 'Completada',
-  },
-  {
-    id: 'EXP-003',
-    guardabosque: 'Juan Torres',
-    fecha: '2026-05-10',
-    ruta: 'Ruta Central - Cumbre',
-    registros: 1,
-    km: 9.3,
-    estado: 'En progreso',
-  },
+  { id: 'EXP-001', guardabosque: 'Carlos Pérez', fecha: '2026-05-08', ruta: 'Ruta Norte - Sector Angostura', registros: 2, km: 14.2, estado: 'Completada' },
+  { id: 'EXP-002', guardabosque: 'María López', fecha: '2026-05-09', ruta: 'Ruta Sur - Sector La Baja', registros: 2, km: 18.7, estado: 'Completada' },
+  { id: 'EXP-003', guardabosque: 'Juan Torres', fecha: '2026-05-10', ruta: 'Ruta Central - Cumbre', registros: 1, km: 9.3, estado: 'En progreso' },
 ];
 
 const GRID_CELLS = (() => {
@@ -193,17 +63,7 @@ function Badge({ status }: { status: string }) {
   };
   const s = styles[status] || styles.pending;
   return (
-    <span
-      style={{
-        background: s.bg,
-        color: s.color,
-        fontSize: 11,
-        padding: '2px 8px',
-        borderRadius: 20,
-        fontWeight: 500,
-        whiteSpace: 'nowrap' as const,
-      }}
-    >
+    <span style={{ background: s.bg, color: s.color, fontSize: 11, padding: '2px 8px', borderRadius: 20, fontWeight: 500, whiteSpace: 'nowrap' as const }}>
       {s.label}
     </span>
   );
@@ -211,35 +71,9 @@ function Badge({ status }: { status: string }) {
 
 function StatCard({ label, value, sub, color }: any) {
   return (
-    <div
-      style={{
-        background: '#f4f4f4',
-        borderRadius: 10,
-        padding: '10px 12px',
-        minWidth: 0,
-      }}
-    >
-      <p
-        style={{
-          fontSize: 11,
-          color: '#888',
-          margin: '0 0 4px',
-          textTransform: 'uppercase' as const,
-          letterSpacing: 1,
-        }}
-      >
-        {label}
-      </p>
-      <p
-        style={{
-          fontSize: 22,
-          fontWeight: 500,
-          margin: '0 0 2px',
-          color: color || '#111',
-        }}
-      >
-        {value}
-      </p>
+    <div style={{ background: '#f4f4f4', borderRadius: 10, padding: '10px 12px', minWidth: 0 }}>
+      <p style={{ fontSize: 11, color: '#888', margin: '0 0 4px', textTransform: 'uppercase' as const, letterSpacing: 1 }}>{label}</p>
+      <p style={{ fontSize: 22, fontWeight: 500, margin: '0 0 2px', color: color || '#111' }}>{value}</p>
       {sub && <p style={{ fontSize: 10, color: '#999', margin: 0 }}>{sub}</p>}
     </div>
   );
@@ -247,10 +81,8 @@ function StatCard({ label, value, sub, color }: any) {
 
 function HeatMap({ records }: { records: any[] }) {
   const [hover, setHover] = useState<number | null>(null);
-  const cellW = 18,
-    cellH = 14;
-  const w = cellW * 18,
-    h = cellH * 12;
+  const cellW = 18, cellH = 14;
+  const w = cellW * 18, h = cellH * 12;
 
   function cellColor(intensity: number) {
     if (intensity < 0.05) return 'transparent';
@@ -262,27 +94,10 @@ function HeatMap({ records }: { records: any[] }) {
 
   return (
     <div>
-      <svg
-        width={w}
-        height={h}
-        style={{
-          border: '0.5px solid #ddd',
-          borderRadius: 8,
-          display: 'block',
-          width: '100%',
-        }}
-        viewBox={`0 0 ${w} ${h}`}
-      >
+      <svg width={w} height={h} style={{ border: '0.5px solid #ddd', borderRadius: 8, display: 'block', width: '100%' }} viewBox={`0 0 ${w} ${h}`}>
         <rect width={w} height={h} fill="#ececec" />
         {GRID_CELLS.map((cell: any, i: number) => (
-          <rect
-            key={i}
-            x={cell.c * cellW}
-            y={cell.r * cellH}
-            width={cellW}
-            height={cellH}
-            fill={cellColor(cell.intensity)}
-          />
+          <rect key={i} x={cell.c * cellW} y={cell.r * cellH} width={cellW} height={cellH} fill={cellColor(cell.intensity)} />
         ))}
         {records.map((rec: any, i: number) => {
           const normLat = (rec.lat - 7.08) / 0.06;
@@ -290,68 +105,18 @@ function HeatMap({ records }: { records: any[] }) {
           const cx = normLng * w;
           const cy = (1 - normLat) * h;
           return (
-            <g
-              key={i}
-              onMouseEnter={() => setHover(i)}
-              onMouseLeave={() => setHover(null)}
-            >
-              <circle
-                cx={cx}
-                cy={cy}
-                r={hover === i ? 7 : 5}
-                fill={rec.tipo === 'especie' ? '#1d9e75' : '#d85a30'}
-                stroke="white"
-                strokeWidth={1.5}
-              />
-              <text
-                x={cx}
-                y={cy + 3}
-                textAnchor="middle"
-                fontSize={6}
-                fill="white"
-                fontWeight={700}
-              >
+            <g key={i} onMouseEnter={() => setHover(i)} onMouseLeave={() => setHover(null)}>
+              <circle cx={cx} cy={cy} r={hover === i ? 7 : 5} fill={rec.tipo === 'especie' ? '#1d9e75' : '#d85a30'} stroke="white" strokeWidth={1.5} />
+              <text x={cx} y={cy + 3} textAnchor="middle" fontSize={6} fill="white" fontWeight={700}>
                 {rec.tipo === 'especie' ? 'E' : 'D'}
               </text>
             </g>
           );
         })}
       </svg>
-      <div
-        style={{
-          display: 'flex',
-          gap: 12,
-          marginTop: 6,
-          fontSize: 10,
-          color: '#888',
-        }}
-      >
-        <span>
-          <span
-            style={{
-              display: 'inline-block',
-              width: 8,
-              height: 8,
-              borderRadius: '50%',
-              background: '#1d9e75',
-              marginRight: 3,
-            }}
-          />
-          Especie
-        </span>
-        <span>
-          <span
-            style={{
-              display: 'inline-block',
-              width: 8,
-              height: 8,
-              borderRadius: '50%',
-              background: '#d85a30',
-              marginRight: 3,
-            }}
-          />
-          Degradación
-        </span>
+      <div style={{ display: 'flex', gap: 12, marginTop: 6, fontSize: 10, color: '#888' }}>
+        <span><span style={{ display: 'inline-block', width: 8, height: 8, borderRadius: '50%', background: '#1d9e75', marginRight: 3 }} />Especie</span>
+        <span><span style={{ display: 'inline-block', width: 8, height: 8, borderRadius: '50%', background: '#d85a30', marginRight: 3 }} />Degradación</span>
       </div>
     </div>
   );
@@ -359,111 +124,41 @@ function HeatMap({ records }: { records: any[] }) {
 
 function NewRecordForm({ onSave, onCancel, expeditions }: any) {
   const [tipo, setTipo] = useState('especie');
-  const [especie, setEspecie] = useState(SPECIES[0].nombre_comun);
-  const [degradacion, setDegradacion] = useState(DEGRADATION_TYPES[0]);
+  const [especie, setEspecie] = useState(SPECIES.nombre_comun);
+  const [degradacion, setDegradacion] = useState(DEGRADATION_TYPES);
   const [severidad, setSeveridad] = useState('Media');
   const [lat, setLat] = useState('7.110');
   const [lng, setLng] = useState('-72.830');
   const [altitud, setAltitud] = useState('3400');
   const [notas, setNotas] = useState('');
-  const [expedicion, setExpedicion] = useState(expeditions[0]?.id || '');
+  const [expedicion, setExpedicion] = useState(expeditions?.id || '');
   const [offline, setOffline] = useState(false);
 
-  const inp: React.CSSProperties = {
-    width: '100%',
-    boxSizing: 'border-box',
-    fontSize: 12,
-    padding: '6px 8px',
-    border: '0.5px solid #ddd',
-    borderRadius: 8,
-    background: 'white',
-    color: '#111',
-  };
+  const inp: React.CSSProperties = { width: '100%', boxSizing: 'border-box', fontSize: 12, padding: '6px 8px', border: '0.5px solid #ddd', borderRadius: 8, background: 'white', color: '#111' };
 
   return (
-    <div
-      style={{
-        background: 'white',
-        border: '0.5px solid #ddd',
-        borderRadius: 12,
-        padding: 12,
-        marginBottom: 10,
-      }}
-    >
-      <p
-        style={{
-          margin: '0 0 8px',
-          fontSize: 13,
-          fontWeight: 500,
-          color: '#111',
-        }}
-      >
-        Nuevo registro biológico
-      </p>
-
+    <div style={{ background: 'white', border: '0.5px solid #ddd', borderRadius: 12, padding: 12, marginBottom: 10 }}>
+      <p style={{ margin: '0 0 8px', fontSize: 13, fontWeight: 500, color: '#111' }}>Nuevo registro biológico</p>
       <div style={{ display: 'flex', gap: 6, marginBottom: 8 }}>
         {['especie', 'degradacion'].map((t) => (
-          <button
-            key={t}
-            onClick={() => setTipo(t)}
-            style={{
-              flex: 1,
-              fontSize: 11,
-              padding: '5px 0',
-              borderRadius: 8,
-              border: tipo === t ? '1.5px solid #1d9e75' : '0.5px solid #ddd',
-              background: tipo === t ? '#e9f7f1' : 'white',
-              color: tipo === t ? '#0f6e56' : '#555',
-              cursor: 'pointer',
-            }}
-          >
+          <button key={t} onClick={() => setTipo(t)} style={{ flex: 1, fontSize: 11, padding: '5px 0', borderRadius: 8, border: tipo === t ? '1.5px solid #1d9e75' : '0.5px solid #ddd', background: tipo === t ? '#e9f7f1' : 'white', color: tipo === t ? '#0f6e56' : '#555', cursor: 'pointer' }}>
             {t === 'especie' ? '🌿 Especie' : '⚠️ Degradación'}
           </button>
         ))}
       </div>
 
       {tipo === 'especie' ? (
-        <select
-          value={especie}
-          onChange={(e) => setEspecie(e.target.value)}
-          style={{ ...inp, marginBottom: 8 }}
-        >
-          {SPECIES.map((s) => (
-            <option key={s.id} value={s.nombre_comun}>
-              {s.nombre_comun}
-            </option>
-          ))}
+        <select value={especie} onChange={(e) => setEspecie(e.target.value)} style={{ ...inp, marginBottom: 8 }}>
+          {SPECIES.map((s) => <option key={s.id} value={s.nombre_comun}>{s.nombre_comun}</option>)}
         </select>
       ) : (
         <>
-          <select
-            value={degradacion}
-            onChange={(e) => setDegradacion(e.target.value)}
-            style={{ ...inp, marginBottom: 8 }}
-          >
-            {DEGRADATION_TYPES.map((d) => (
-              <option key={d}>{d}</option>
-            ))}
+          <select value={degradacion} onChange={(e) => setDegradacion(e.target.value)} style={{ ...inp, marginBottom: 8 }}>
+            {DEGRADATION_TYPES.map((d) => <option key={d}>{d}</option>)}
           </select>
           <div style={{ display: 'flex', gap: 4, marginBottom: 8 }}>
             {['Baja', 'Media', 'Alta', 'Crítica'].map((s) => (
-              <button
-                key={s}
-                onClick={() => setSeveridad(s)}
-                style={{
-                  flex: 1,
-                  fontSize: 10,
-                  padding: '4px 0',
-                  borderRadius: 6,
-                  border:
-                    severidad === s
-                      ? '1.5px solid #d85a30'
-                      : '0.5px solid #ddd',
-                  background: severidad === s ? '#faece7' : 'white',
-                  color: severidad === s ? '#993c1d' : '#555',
-                  cursor: 'pointer',
-                }}
-              >
+              <button key={s} onClick={() => setSeveridad(s)} style={{ flex: 1, fontSize: 10, padding: '4px 0', borderRadius: 6, border: severidad === s ? '1.5px solid #d85a30' : '0.5px solid #ddd', background: severidad === s ? '#faece7' : 'white', color: severidad === s ? '#993c1d' : '#555', cursor: 'pointer' }}>
                 {s}
               </button>
             ))}
@@ -471,117 +166,25 @@ function NewRecordForm({ onSave, onCancel, expeditions }: any) {
         </>
       )}
 
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr 1fr',
-          gap: 6,
-          marginBottom: 8,
-        }}
-      >
-        <input
-          value={lat}
-          onChange={(e) => setLat(e.target.value)}
-          placeholder="Lat"
-          style={inp}
-        />
-        <input
-          value={lng}
-          onChange={(e) => setLng(e.target.value)}
-          placeholder="Lng"
-          style={inp}
-        />
-        <input
-          value={altitud}
-          onChange={(e) => setAltitud(e.target.value)}
-          placeholder="Alt (m)"
-          style={inp}
-        />
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 6, marginBottom: 8 }}>
+        <input value={lat} onChange={(e) => setLat(e.target.value)} placeholder="Lat" style={inp} />
+        <input value={lng} onChange={(e) => setLng(e.target.value)} placeholder="Lng" style={inp} />
+        <input value={altitud} onChange={(e) => setAltitud(e.target.value)} placeholder="Alt (m)" style={inp} />
       </div>
 
-      <select
-        value={expedicion}
-        onChange={(e) => setExpedicion(e.target.value)}
-        style={{ ...inp, marginBottom: 8 }}
-      >
-        {expeditions.map((ex: any) => (
-          <option key={ex.id} value={ex.id}>
-            {ex.id} — {ex.ruta}
-          </option>
-        ))}
+      <select value={expedicion} onChange={(e) => setExpedicion(e.target.value)} style={{ ...inp, marginBottom: 8 }}>
+        {expeditions.map((ex: any) => <option key={ex.id} value={ex.id}>{ex.id} — {ex.ruta}</option>)}
       </select>
+      <textarea value={notas} onChange={(e) => setNotas(e.target.value)} rows={2} placeholder="Notas de campo..." style={{ ...inp, resize: 'none', marginBottom: 8 }} />
 
-      <textarea
-        value={notas}
-        onChange={(e) => setNotas(e.target.value)}
-        rows={2}
-        placeholder="Notas de campo..."
-        style={{ ...inp, resize: 'none', marginBottom: 8 }}
-      />
-
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 8,
-          marginBottom: 10,
-        }}
-      >
-        <input
-          type="checkbox"
-          id="offline"
-          checked={offline}
-          onChange={(e) => setOffline(e.target.checked)}
-        />
-        <label htmlFor="offline" style={{ fontSize: 11, color: '#888' }}>
-          Simular modo offline
-        </label>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
+        <input type="checkbox" id="offline" checked={offline} onChange={(e) => setOffline(e.target.checked)} />
+        <label htmlFor="offline" style={{ fontSize: 11, color: '#888' }}>Simular modo offline</label>
       </div>
 
       <div style={{ display: 'flex', gap: 8 }}>
-        <button
-          onClick={onCancel}
-          style={{
-            flex: 1,
-            padding: '8px',
-            borderRadius: 8,
-            border: '0.5px solid #ddd',
-            background: 'white',
-            cursor: 'pointer',
-            fontSize: 12,
-          }}
-        >
-          Cancelar
-        </button>
-        <button
-          onClick={() =>
-            onSave({
-              tipo,
-              especie,
-              degradacion,
-              severidad,
-              lat: parseFloat(lat),
-              lng: parseFloat(lng),
-              altitud: parseInt(altitud),
-              notas,
-              expedicion,
-              sync: offline ? 'queue' : 'pending',
-            })
-          }
-          style={{
-            flex: 1,
-            padding: '8px',
-            borderRadius: 8,
-            border: 'none',
-            background: '#1d9e75',
-            color: 'white',
-            fontWeight: 500,
-            cursor: 'pointer',
-            fontSize: 12,
-          }}
-        >
-          Guardar
-        </button>
+        <button onClick={onCancel} style={{ flex: 1, padding: '8px', borderRadius: 8, border: '0.5px solid #ddd', background: 'white', cursor: 'pointer', fontSize: 12 }}>Cancelar</button>
+        <button onClick={() => onSave({ tipo, especie, degradacion, severidad, lat: parseFloat(lat), lng: parseFloat(lng), altitud: parseInt(altitud), notas, expedicion, sync: offline ? 'queue' : 'pending' })} style={{ flex: 1, padding: '8px', borderRadius: 8, border: 'none', background: '#1d9e75', color: 'white', fontWeight: 500, cursor: 'pointer', fontSize: 12 }}>Guardar</button>
       </div>
     </div>
   );
@@ -593,110 +196,25 @@ function ScreenDashboard({ records, expeditions }: any) {
   const pendingCount = records.filter((r: any) => r.sync !== 'sync').length;
   return (
     <div style={{ padding: '0 12px 80px' }}>
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: 8,
-          marginBottom: 14,
-        }}
-      >
-        <StatCard
-          label="Registros"
-          value={records.length}
-          sub={`${pendingCount} pendientes`}
-          color="#185fa5"
-        />
-        <StatCard
-          label="Especies"
-          value={records.filter((r: any) => r.tipo === 'especie').length}
-          sub="avistadas"
-          color="#0f6e56"
-        />
-        <StatCard
-          label="Focos"
-          value={records.filter((r: any) => r.tipo === 'degradacion').length}
-          sub="detectados"
-          color="#854f0b"
-        />
-        <StatCard
-          label="Expediciones"
-          value={expeditions.length}
-          sub={`${
-            expeditions.filter((e: any) => e.estado === 'En progreso').length
-          } activas`}
-          color="#533ab7"
-        />
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 14 }}>
+        <StatCard label="Registros" value={records.length} sub={`${pendingCount} pendientes`} color="#185fa5" />
+        <StatCard label="Especies" value={records.filter((r: any) => r.tipo === 'especie').length} sub="avistadas" color="#0f6e56" />
+        <StatCard label="Focos" value={records.filter((r: any) => r.tipo === 'degradacion').length} sub="detectados" color="#854f0b" />
+        <StatCard label="Expediciones" value={expeditions.length} sub={`${expeditions.filter((e: any) => e.estado === 'En progreso').length} activas`} color="#533ab7" />
       </div>
-      <p
-        style={{
-          fontSize: 10,
-          color: '#999',
-          margin: '0 0 6px',
-          textTransform: 'uppercase',
-          letterSpacing: 1,
-        }}
-      >
-        Mapa de calor — Santurbán
-      </p>
+      <p style={{ fontSize: 10, color: '#999', margin: '0 0 6px', textTransform: 'uppercase', letterSpacing: 1 }}>Mapa de calor — Santurbán</p>
       <HeatMap records={records} />
-      <p
-        style={{
-          fontSize: 10,
-          color: '#999',
-          margin: '14px 0 6px',
-          textTransform: 'uppercase',
-          letterSpacing: 1,
-        }}
-      >
-        Degradación por tipo
-      </p>
+      <p style={{ fontSize: 10, color: '#999', margin: '14px 0 6px', textTransform: 'uppercase', letterSpacing: 1 }}>Degradación por tipo</p>
       {DEGRADATION_TYPES.map((tipo) => {
         const count = records.filter((r: any) => r.degradacion === tipo).length;
         const pct = records.length > 0 ? (count / records.length) * 100 : 0;
         return (
-          <div
-            key={tipo}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8,
-              marginBottom: 6,
-            }}
-          >
-            <span
-              style={{ fontSize: 10, color: '#888', width: 120, flexShrink: 0 }}
-            >
-              {tipo}
-            </span>
-            <div
-              style={{
-                flex: 1,
-                height: 6,
-                background: '#eee',
-                borderRadius: 4,
-                overflow: 'hidden',
-              }}
-            >
-              <div
-                style={{
-                  width: `${pct}%`,
-                  height: '100%',
-                  background: count > 0 ? '#d85a30' : 'transparent',
-                  borderRadius: 4,
-                }}
-              />
+          <div key={tipo} style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+            <span style={{ fontSize: 10, color: '#888', width: 120, flexShrink: 0 }}>{tipo}</span>
+            <div style={{ flex: 1, height: 6, background: '#eee', borderRadius: 4, overflow: 'hidden' }}>
+              <div style={{ width: `${pct}%`, height: '100%', background: count > 0 ? '#d85a30' : 'transparent', borderRadius: 4 }} />
             </div>
-            <span
-              style={{
-                fontSize: 10,
-                color: '#aaa',
-                width: 14,
-                textAlign: 'right',
-              }}
-            >
-              {count}
-            </span>
+            <span style={{ fontSize: 10, color: '#aaa', width: 14, textAlign: 'right' }}>{count}</span>
           </div>
         );
       })}
@@ -707,18 +225,10 @@ function ScreenDashboard({ records, expeditions }: any) {
 function ScreenRegistros({ records, setRecords, expeditions, showNotif }: any) {
   const [filter, setFilter] = useState('todos');
   const [showForm, setShowForm] = useState(false);
-  const filtered =
-    filter === 'todos'
-      ? records
-      : records.filter((r: any) => r.tipo === filter);
+  const filtered = filter === 'todos' ? records : records.filter((r: any) => r.tipo === filter);
 
   function handleSave(data: any) {
-    const rec = {
-      id: Date.now(),
-      ...data,
-      fecha: new Date().toISOString().split('T')[0],
-      hora: new Date().toTimeString().slice(0, 5),
-    };
+    const rec = { id: Date.now(), ...data, fecha: new Date().toISOString().split('T'), hora: new Date().toTimeString().slice(0, 5) };
     setRecords((prev: any[]) => [rec, ...prev]);
     setShowForm(false);
     showNotif('Registro guardado');
@@ -726,110 +236,27 @@ function ScreenRegistros({ records, setRecords, expeditions, showNotif }: any) {
 
   return (
     <div style={{ padding: '0 12px 80px' }}>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginBottom: 10,
-        }}
-      >
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
         <div style={{ display: 'flex', gap: 6 }}>
           {['todos', 'especie', 'degradacion'].map((f) => (
-            <button
-              key={f}
-              onClick={() => setFilter(f)}
-              style={{
-                fontSize: 10,
-                padding: '4px 10px',
-                borderRadius: 20,
-                border: '0.5px solid #ddd',
-                background: filter === f ? '#1d9e75' : 'white',
-                color: filter === f ? 'white' : '#666',
-                cursor: 'pointer',
-              }}
-            >
+            <button key={f} onClick={() => setFilter(f)} style={{ fontSize: 10, padding: '4px 10px', borderRadius: 20, border: '0.5px solid #ddd', background: filter === f ? '#1d9e75' : 'white', color: filter === f ? 'white' : '#666', cursor: 'pointer' }}>
               {f === 'todos' ? 'Todos' : f === 'especie' ? 'Especies' : 'Focos'}
             </button>
           ))}
         </div>
-        <button
-          onClick={() => setShowForm((v) => !v)}
-          style={{
-            fontSize: 12,
-            padding: '6px 14px',
-            borderRadius: 20,
-            background: '#1d9e75',
-            color: 'white',
-            border: 'none',
-            cursor: 'pointer',
-          }}
-        >
-          + Nuevo
-        </button>
+        <button onClick={() => setShowForm((v) => !v)} style={{ fontSize: 12, padding: '6px 14px', borderRadius: 20, background: '#1d9e75', color: 'white', border: 'none', cursor: 'pointer' }}>+ Nuevo</button>
       </div>
-      {showForm && (
-        <NewRecordForm
-          onSave={handleSave}
-          onCancel={() => setShowForm(false)}
-          expeditions={expeditions}
-        />
-      )}
+      {showForm && <NewRecordForm onSave={handleSave} onCancel={() => setShowForm(false)} expeditions={expeditions} />}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         {filtered.map((rec: any) => (
-          <div
-            key={rec.id}
-            style={{
-              background: 'white',
-              border: '0.5px solid #e8e8e8',
-              borderRadius: 10,
-              padding: '10px 12px',
-            }}
-          >
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'flex-start',
-                marginBottom: 4,
-              }}
-            >
-              <span style={{ fontSize: 13, fontWeight: 500, color: '#111' }}>
-                {rec.tipo === 'especie' ? '🌿 ' : '⚠️ '}
-                {rec.tipo === 'especie' ? rec.especie : rec.degradacion}
-              </span>
+          <div key={rec.id} style={{ background: 'white', border: '0.5px solid #e8e8e8', borderRadius: 10, padding: '10px 12px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 4 }}>
+              <span style={{ fontSize: 13, fontWeight: 500, color: '#111' }}>{rec.tipo === 'especie' ? '🌿 ' : '⚠️ '}{rec.tipo === 'especie' ? rec.especie : rec.degradacion}</span>
               <Badge status={rec.sync} />
             </div>
-            {rec.severidad && (
-              <span
-                style={{
-                  fontSize: 10,
-                  padding: '1px 7px',
-                  borderRadius: 20,
-                  background:
-                    rec.severidad === 'Crítica' ? '#fcebeb' : '#fef3dc',
-                  color: rec.severidad === 'Crítica' ? '#a32d2d' : '#854f0b',
-                  display: 'inline-block',
-                  marginBottom: 4,
-                }}
-              >
-                {rec.severidad}
-              </span>
-            )}
-            <p
-              style={{
-                margin: '2px 0 4px',
-                fontSize: 11,
-                color: '#777',
-                lineHeight: 1.4,
-              }}
-            >
-              {rec.notas || 'Sin notas'}
-            </p>
-            <p style={{ margin: 0, fontSize: 10, color: '#bbb' }}>
-              📍 {rec.lat?.toFixed(3)},{Math.abs(rec.lng ?? 0).toFixed(3)} · ⛰{' '}
-              {rec.altitud}m · {rec.fecha} {rec.hora}
-            </p>
+            {rec.severidad && <span style={{ fontSize: 10, padding: '1px 7px', borderRadius: 20, background: rec.severidad === 'Crítica' ? '#fcebeb' : '#fef3dc', color: rec.severidad === 'Crítica' ? '#a32d2d' : '#854f0b', display: 'inline-block', marginBottom: 4 }}>{rec.severidad}</span>}
+            <p style={{ margin: '2px 0 4px', fontSize: 11, color: '#777', lineHeight: 1.4 }}>{rec.notas || 'Sin notas'}</p>
+            <p style={{ margin: 0, fontSize: 10, color: '#bbb' }}>📍 {rec.lat?.toFixed(3)},{Math.abs(rec.lng ?? 0).toFixed(3)} · ⛰ {rec.altitud}m · {rec.fecha} {rec.hora}</p>
           </div>
         ))}
       </div>
@@ -841,30 +268,10 @@ function ScreenExpediciones({ expeditions, setExpeditions, showNotif }: any) {
   const [showForm, setShowForm] = useState(false);
   const [ruta, setRuta] = useState('');
   const [gb, setGb] = useState('');
-  const inp: React.CSSProperties = {
-    width: '100%',
-    boxSizing: 'border-box',
-    fontSize: 12,
-    padding: '6px 8px',
-    border: '0.5px solid #ddd',
-    borderRadius: 8,
-    color: '#111',
-    background: 'white',
-  };
+  const inp: React.CSSProperties = { width: '100%', boxSizing: 'border-box', fontSize: 12, padding: '6px 8px', border: '0.5px solid #ddd', borderRadius: 8, color: '#111', background: 'white' };
 
   function save() {
-    setExpeditions((prev: any[]) => [
-      {
-        id: `EXP-00${prev.length + 4}`,
-        guardabosque: gb || 'Sin asignar',
-        fecha: new Date().toISOString().split('T')[0],
-        ruta: ruta || 'Ruta sin nombre',
-        registros: 0,
-        km: 0,
-        estado: 'En progreso',
-      },
-      ...prev,
-    ]);
+    setExpeditions((prev: any[]) => [{ id: `EXP-00${prev.length + 4}`, guardabosque: gb || 'Sin asignar', fecha: new Date().toISOString().split('T'), ruta: ruta || 'Ruta sin nombre', registros: 0, km: 0, estado: 'En progreso' }, ...prev]);
     setShowForm(false);
     setRuta('');
     setGb('');
@@ -873,125 +280,28 @@ function ScreenExpediciones({ expeditions, setExpeditions, showNotif }: any) {
 
   return (
     <div style={{ padding: '0 12px 80px' }}>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          marginBottom: 10,
-        }}
-      >
-        <button
-          onClick={() => setShowForm((v) => !v)}
-          style={{
-            fontSize: 12,
-            padding: '6px 14px',
-            borderRadius: 20,
-            background: '#185fa5',
-            color: 'white',
-            border: 'none',
-            cursor: 'pointer',
-          }}
-        >
-          + Nueva
-        </button>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 10 }}>
+        <button onClick={() => setShowForm((v) => !v)} style={{ fontSize: 12, padding: '6px 14px', borderRadius: 20, background: '#185fa5', color: 'white', border: 'none', cursor: 'pointer' }}>+ Nueva</button>
       </div>
       {showForm && (
-        <div
-          style={{
-            background: 'white',
-            border: '0.5px solid #ddd',
-            borderRadius: 12,
-            padding: 12,
-            marginBottom: 10,
-          }}
-        >
-          <input
-            value={gb}
-            onChange={(e) => setGb(e.target.value)}
-            placeholder="Guardabosque responsable"
-            style={{ ...inp, marginBottom: 8 }}
-          />
-          <input
-            value={ruta}
-            onChange={(e) => setRuta(e.target.value)}
-            placeholder="Ruta / sector"
-            style={{ ...inp, marginBottom: 10 }}
-          />
+        <div style={{ background: 'white', border: '0.5px solid #ddd', borderRadius: 12, padding: 12, marginBottom: 10 }}>
+          <input value={gb} onChange={(e) => setGb(e.target.value)} placeholder="Guardabosque responsable" style={{ ...inp, marginBottom: 8 }} />
+          <input value={ruta} onChange={(e) => setRuta(e.target.value)} placeholder="Ruta / sector" style={{ ...inp, marginBottom: 10 }} />
           <div style={{ display: 'flex', gap: 8 }}>
-            <button
-              onClick={() => setShowForm(false)}
-              style={{
-                flex: 1,
-                padding: 8,
-                borderRadius: 8,
-                border: '0.5px solid #ddd',
-                background: 'white',
-                cursor: 'pointer',
-                fontSize: 12,
-              }}
-            >
-              Cancelar
-            </button>
-            <button
-              onClick={save}
-              style={{
-                flex: 1,
-                padding: 8,
-                borderRadius: 8,
-                border: 'none',
-                background: '#185fa5',
-                color: 'white',
-                cursor: 'pointer',
-                fontSize: 12,
-              }}
-            >
-              Iniciar
-            </button>
+            <button onClick={() => setShowForm(false)} style={{ flex: 1, padding: 8, borderRadius: 8, border: '0.5px solid #ddd', background: 'white', cursor: 'pointer', fontSize: 12 }}>Cancelar</button>
+            <button onClick={save} style={{ flex: 1, padding: 8, borderRadius: 8, border: 'none', background: '#185fa5', color: 'white', cursor: 'pointer', fontSize: 12 }}>Iniciar</button>
           </div>
         </div>
       )}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         {expeditions.map((exp: any) => (
-          <div
-            key={exp.id}
-            style={{
-              background: 'white',
-              border: '0.5px solid #e8e8e8',
-              borderRadius: 10,
-              padding: '10px 12px',
-            }}
-          >
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginBottom: 4,
-              }}
-            >
-              <span style={{ fontSize: 13, fontWeight: 500, color: '#111' }}>
-                {exp.id}
-              </span>
-              <span
-                style={{
-                  fontSize: 10,
-                  padding: '2px 8px',
-                  borderRadius: 20,
-                  background:
-                    exp.estado === 'En progreso' ? '#fef3dc' : '#e9f7f1',
-                  color: exp.estado === 'En progreso' ? '#854f0b' : '#0f6e56',
-                  fontWeight: 500,
-                }}
-              >
-                {exp.estado}
-              </span>
+          <div key={exp.id} style={{ background: 'white', border: '0.5px solid #e8e8e8', borderRadius: 10, padding: '10px 12px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
+              <span style={{ fontSize: 13, fontWeight: 500, color: '#111' }}>{exp.id}</span>
+              <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 20, background: exp.estado === 'En progreso' ? '#fef3dc' : '#e9f7f1', color: exp.estado === 'En progreso' ? '#854f0b' : '#0f6e56', fontWeight: 500 }}>{exp.estado}</span>
             </div>
-            <p style={{ margin: '0 0 2px', fontSize: 11, color: '#777' }}>
-              {exp.ruta}
-            </p>
-            <p style={{ margin: 0, fontSize: 10, color: '#bbb' }}>
-              👤 {exp.guardabosque} · 📅 {exp.fecha} · 📸 {exp.registros} reg.
-            </p>
+            <p style={{ margin: '0 0 2px', fontSize: 11, color: '#777' }}>{exp.ruta}</p>
+            <p style={{ margin: 0, fontSize: 10, color: '#bbb' }}>👤 {exp.guardabosque} · 📅 {exp.fecha} · 📸 {exp.registros} reg.</p>
           </div>
         ))}
       </div>
@@ -1004,77 +314,19 @@ function ScreenEspecies({ records }: { records: any[] }) {
     <div style={{ padding: '0 12px 80px' }}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         {SPECIES.map((s) => {
-          const count = records.filter(
-            (r: any) => r.especie === s.nombre_comun
-          ).length;
-          const estadoColor: any = {
-            'En peligro': { bg: '#fcebeb', color: '#a32d2d' },
-            Vulnerable: { bg: '#fef3dc', color: '#854f0b' },
-            'Casi amenazado': { bg: '#e8f2fc', color: '#185fa5' },
-            'Preocupación menor': { bg: '#e9f7f1', color: '#0f6e56' },
-          };
+          const count = records.filter((r: any) => r.especie === s.nombre_comun).length;
+          const estadoColor: any = { 'En peligro': { bg: '#fcebeb', color: '#a32d2d' }, Vulnerable: { bg: '#fef3dc', color: '#854f0b' }, 'Casi amenazado': { bg: '#e8f2fc', color: '#185fa5' }, 'Preocupación menor': { bg: '#e9f7f1', color: '#0f6e56' } };
           const ec = estadoColor[s.estado] || { bg: '#f0f0f0', color: '#888' };
           return (
-            <div
-              key={s.id}
-              style={{
-                background: 'white',
-                border: '0.5px solid #e8e8e8',
-                borderRadius: 10,
-                padding: '10px 12px',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-            >
+            <div key={s.id} style={{ background: 'white', border: '0.5px solid #e8e8e8', borderRadius: 10, padding: '10px 12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
-                <p
-                  style={{
-                    margin: '0 0 2px',
-                    fontSize: 13,
-                    fontWeight: 500,
-                    color: '#111',
-                  }}
-                >
-                  {s.nombre_comun}
-                </p>
-                <p
-                  style={{
-                    margin: '0 0 6px',
-                    fontSize: 10,
-                    color: '#999',
-                    fontStyle: 'italic',
-                  }}
-                >
-                  {s.nombre_cientifico}
-                </p>
-                <span
-                  style={{
-                    fontSize: 10,
-                    padding: '2px 8px',
-                    borderRadius: 20,
-                    background: ec.bg,
-                    color: ec.color,
-                    fontWeight: 500,
-                  }}
-                >
-                  {s.estado}
-                </span>
+                <p style={{ margin: '0 0 2px', fontSize: 13, fontWeight: 500, color: '#111' }}>{s.nombre_comun}</p>
+                <p style={{ margin: '0 0 6px', fontSize: 10, color: '#999', fontStyle: 'italic' }}>{s.nombre_cientifico}</p>
+                <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 20, background: ec.bg, color: ec.color, fontWeight: 500 }}>{s.estado}</span>
               </div>
               <div style={{ textAlign: 'right' as const }}>
-                <p
-                  style={{
-                    margin: 0,
-                    fontSize: 22,
-                    fontWeight: 500,
-                    color: '#185fa5',
-                  }}
-                >
-                  {count}
-                </p>
-                <p style={{ margin: 0, fontSize: 10, color: '#aaa' }}>
-                  avistamientos
-                </p>
+                <p style={{ margin: 0, fontSize: 22, fontWeight: 500, color: '#185fa5' }}>{count}</p>
+                <p style={{ margin: 0, fontSize: 10, color: '#aaa' }}>avistamientos</p>
               </div>
             </div>
           );
@@ -1084,9 +336,74 @@ function ScreenEspecies({ records }: { records: any[] }) {
   );
 }
 
-// ─── ANDROID FRAME ───────────────────────────────────────────────────────────
+// ─── PIN PAD SCREEN ──────────────────────────────────────────────────────────
+
+function PinPadScreen({ onUnlock }: { onUnlock: () => void }) {
+  const [pin, setPin] = useState('');
+  const [error, setError] = useState(false);
+  const MAX_LENGTH = 4;
+  const CORRECT_PIN = '1234'; // Cambia esto por tu validación real contra DB
+
+  const handleNumberClick = (num: string) => {
+    if (pin.length < MAX_LENGTH) {
+      const newPin = pin + num;
+      setPin(newPin);
+      
+      if (newPin.length === MAX_LENGTH) {
+        if (newPin === CORRECT_PIN) {
+          setTimeout(onUnlock, 300); // Pequeña pausa para que se vea el último punto lleno
+        } else {
+          setError(true);
+          setTimeout(() => {
+            setPin('');
+            setError(false);
+          }, 400); // Resetea si el pin está mal
+        }
+      }
+    }
+  };
+
+  const keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '', '0', 'C'];
+
+  return (
+    <div style={{ height: 690, background: '#111', color: 'white', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ width: 64, height: 64, background: '#1d9e75', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 32, marginBottom: 16 }}>🌿</div>
+      <h2 style={{ margin: '0 0 8px', fontSize: 20, fontWeight: 600 }}>Santurbán App</h2>
+      <p style={{ margin: '0 0 32px', fontSize: 12, color: error ? '#ff3b30' : '#aaa' }}>
+        {error ? 'PIN Incorrecto' : 'Ingrese PIN de seguridad (RNF3)'}
+      </p>
+
+      <div style={{ display: 'flex', gap: 16, marginBottom: 48 }}>
+        {[...Array(MAX_LENGTH)].map((_, i) => (
+          <div key={i} style={{ width: 16, height: 16, borderRadius: '50%', background: error ? '#ff3b30' : (i < pin.length ? 'white' : '#333'), transition: 'background 0.2s' }} />
+        ))}
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, width: 240 }}>
+        {keys.map((key, idx) => (
+          <div key={idx} style={{ display: 'flex', justifyContent: 'center' }}>
+            {key ? (
+              <button
+                onClick={() => key === 'C' ? setPin('') : handleNumberClick(key)}
+                style={{ width: 64, height: 64, background: '#2c2c2e', border: 'none', borderRadius: 32, color: 'white', fontSize: 24, fontWeight: 500, cursor: 'pointer' }}
+              >
+                {key}
+              </button>
+            ) : (
+              <div style={{ width: 64, height: 64 }} />
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── ANDROID FRAME & APP LOGIC ───────────────────────────────────────────────
 
 export default function App() {
+  const [isLocked, setIsLocked] = useState(true); // <-- ESTO OBLIGA A QUE EL PIN SALGA SIEMPRE AL RECARGAR
+  
   const [tab, setTab] = useState('dashboard');
   const [records, setRecords] = useState<any[]>(INITIAL_RECORDS);
   const [expeditions, setExpeditions] = useState<any[]>(EXPEDITIONS);
@@ -1095,13 +412,7 @@ export default function App() {
   const [time, setTime] = useState('');
 
   useEffect(() => {
-    const update = () =>
-      setTime(
-        new Date().toLocaleTimeString('es-CO', {
-          hour: '2-digit',
-          minute: '2-digit',
-        })
-      );
+    const update = () => setTime(new Date().toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' }));
     update();
     const t = setInterval(update, 30000);
     return () => clearInterval(t);
@@ -1115,10 +426,7 @@ export default function App() {
   }
 
   function handleSync() {
-    if (pendingCount === 0) {
-      showNotif('Todo sincronizado ✓');
-      return;
-    }
+    if (pendingCount === 0) return showNotif('Todo sincronizado ✓');
     setSyncProgress(0);
     let step = 0;
     const interval = setInterval(() => {
@@ -1140,105 +448,24 @@ export default function App() {
     { id: 'especies', label: 'Catálogo', icon: '📋' },
   ];
 
-  const screenTitle: any = {
-    dashboard: 'Dashboard',
-    registros: 'Registros biológicos',
-    expediciones: 'Expediciones',
-    especies: 'Catálogo de especies',
-  };
+  const screenTitle: any = { dashboard: 'Dashboard', registros: 'Registros biológicos', expediciones: 'Expediciones', especies: 'Catálogo de especies' };
 
-  // Outer page: centered gray background, phone frame in the middle
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        background: '#d0d0d0',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '40px 20px',
-        boxSizing: 'border-box',
-      }}
-    >
-      {/* Phone shell */}
-      <div
-        style={{
-          width: 375,
-          background: '#1a1a1a',
-          borderRadius: 48,
-          padding: '12px',
-          boxShadow: '0 30px 80px rgba(0,0,0,0.5)',
-          flexShrink: 0,
-        }}
-      >
-        {/* Power / volume buttons */}
-        <div
-          style={{
-            position: 'absolute' as const,
-            left: -4,
-            top: 120,
-            width: 4,
-            height: 32,
-            background: '#333',
-            borderRadius: '4px 0 0 4px',
-          }}
-        />
-        <div
-          style={{
-            position: 'absolute' as const,
-            left: -4,
-            top: 165,
-            width: 4,
-            height: 56,
-            background: '#333',
-            borderRadius: '4px 0 0 4px',
-          }}
-        />
-        <div
-          style={{
-            position: 'absolute' as const,
-            left: -4,
-            top: 232,
-            width: 4,
-            height: 56,
-            background: '#333',
-            borderRadius: '4px 0 0 4px',
-          }}
-        />
-        <div
-          style={{
-            position: 'absolute' as const,
-            right: -4,
-            top: 150,
-            width: 4,
-            height: 72,
-            background: '#333',
-            borderRadius: '0 4px 4px 0',
-          }}
-        />
+    <div style={{ minHeight: '100vh', background: '#d0d0d0', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 20px', boxSizing: 'border-box' }}>
+      <div style={{ width: 375, background: '#1a1a1a', borderRadius: 48, padding: '12px', boxShadow: '0 30px 80px rgba(0,0,0,0.5)', flexShrink: 0, position: 'relative' }}>
+        
+        {/* Phone hardware buttons */}
+        <div style={{ position: 'absolute', left: -4, top: 120, width: 4, height: 32, background: '#333', borderRadius: '4px 0 0 4px' }} />
+        <div style={{ position: 'absolute', left: -4, top: 165, width: 4, height: 56, background: '#333', borderRadius: '4px 0 0 4px' }} />
+        <div style={{ position: 'absolute', left: -4, top: 232, width: 4, height: 56, background: '#333', borderRadius: '4px 0 0 4px' }} />
+        <div style={{ position: 'absolute', right: -4, top: 150, width: 4, height: 72, background: '#333', borderRadius: '0 4px 4px 0' }} />
 
         {/* Screen */}
-        <div
-          style={{
-            background: '#f2f2f7',
-            borderRadius: 38,
-            overflow: 'hidden',
-            position: 'relative' as const,
-          }}
-        >
-          {/* Android status bar */}
-          <div
-            style={{
-              background: '#1d9e75',
-              padding: '10px 20px 8px',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
-            <span style={{ fontSize: 12, fontWeight: 600, color: 'white' }}>
-              {time}
-            </span>
+        <div style={{ background: isLocked ? '#111' : '#f2f2f7', borderRadius: 38, overflow: 'hidden', position: 'relative', height: 724, display: 'flex', flexDirection: 'column' }}>
+          
+          {/* Status bar */}
+          <div style={{ background: isLocked ? '#111' : '#1d9e75', padding: '10px 20px 8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', transition: 'background 0.3s' }}>
+            <span style={{ fontSize: 12, fontWeight: 600, color: 'white' }}>{time}</span>
             <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
               <span style={{ fontSize: 11, color: 'white' }}>●●●</span>
               <span style={{ fontSize: 11, color: 'white' }}>WiFi</span>
@@ -1246,213 +473,63 @@ export default function App() {
             </div>
           </div>
 
-          {/* App top bar */}
-          <div
-            style={{
-              background: '#1d9e75',
-              padding: '0 16px 12px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}
-          >
-            <div>
-              <p
-                style={{
-                  margin: 0,
-                  fontSize: 16,
-                  fontWeight: 600,
-                  color: 'white',
-                }}
-              >
-                {screenTitle[tab]}
-              </p>
-              <p
-                style={{
-                  margin: 0,
-                  fontSize: 10,
-                  color: 'rgba(255,255,255,0.75)',
-                }}
-              >
-                Páramo de Santurbán · CTeI-SGR-2024
-              </p>
-            </div>
-            <button
-              onClick={handleSync}
-              title="Sincronizar"
-              style={{
-                background: 'rgba(255,255,255,0.2)',
-                border: 'none',
-                borderRadius: 20,
-                padding: '5px 10px',
-                color: 'white',
-                fontSize: 11,
-                cursor: 'pointer',
-              }}
-            >
-              {syncProgress !== null ? `${syncProgress}%` : `↑ ${pendingCount}`}
-            </button>
-          </div>
+          {/* Conditional Rendering: Lock Screen vs App Content */}
+          {isLocked ? (
+            <PinPadScreen onUnlock={() => setIsLocked(false)} />
+          ) : (
+            <>
+              {/* App top bar */}
+              <div style={{ background: '#1d9e75', padding: '0 16px 12px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div>
+                  <p style={{ margin: 0, fontSize: 16, fontWeight: 600, color: 'white' }}>{screenTitle[tab]}</p>
+                  <p style={{ margin: 0, fontSize: 10, color: 'rgba(255,255,255,0.75)' }}>Páramo de Santurbán · CTeI-SGR-2024</p>
+                </div>
+                <button onClick={handleSync} title="Sincronizar" style={{ background: 'rgba(255,255,255,0.2)', border: 'none', borderRadius: 20, padding: '5px 10px', color: 'white', fontSize: 11, cursor: 'pointer' }}>
+                  {syncProgress !== null ? `${syncProgress}%` : `↑ ${pendingCount}`}
+                </button>
+              </div>
 
-          {/* Notification toast */}
-          {notification && (
-            <div
-              style={{
-                background: '#222',
-                color: 'white',
-                fontSize: 12,
-                padding: '8px 16px',
-                textAlign: 'center' as const,
-              }}
-            >
-              {notification}
-            </div>
+              {notification && <div style={{ background: '#222', color: 'white', fontSize: 12, padding: '8px 16px', textAlign: 'center' as const }}>{notification}</div>}
+              
+              {syncProgress !== null && (
+                <div style={{ height: 3, background: '#ddd' }}>
+                  <div style={{ height: 3, width: `${syncProgress}%`, background: '#1d9e75', transition: 'width 0.4s' }} />
+                </div>
+              )}
+
+              {pendingCount > 0 && syncProgress === null && (
+                <div style={{ background: '#fef3dc', padding: '6px 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontSize: 11, color: '#854f0b' }}>{pendingCount} registro{pendingCount > 1 ? 's' : ''} pendiente{pendingCount > 1 ? 's' : ''}</span>
+                  <button onClick={handleSync} style={{ fontSize: 10, padding: '2px 10px', borderRadius: 20, background: '#854f0b', color: 'white', border: 'none', cursor: 'pointer' }}>Sincronizar</button>
+                </div>
+              )}
+
+              {/* Scrollable content */}
+              <div style={{ flex: 1, overflowY: 'auto', background: '#f2f2f7', paddingTop: 12 }}>
+                {tab === 'dashboard' && <ScreenDashboard records={records} expeditions={expeditions} />}
+                {tab === 'registros' && <ScreenRegistros records={records} setRecords={setRecords} expeditions={expeditions} showNotif={showNotif} />}
+                {tab === 'expediciones' && <ScreenExpediciones expeditions={expeditions} setExpeditions={setExpeditions} showNotif={showNotif} />}
+                {tab === 'especies' && <ScreenEspecies records={records} />}
+              </div>
+
+              {/* Bottom nav */}
+              <div style={{ background: 'white', borderTop: '0.5px solid #e0e0e0', display: 'flex', justifyContent: 'space-around', padding: '8px 0 4px' }}>
+                {navItems.map((item) => (
+                  <button key={item.id} onClick={() => setTab(item.id)} style={{ display: 'flex', flexDirection: 'column' as const, alignItems: 'center', gap: 3, background: 'transparent', border: 'none', cursor: 'pointer', padding: '4px 12px', borderRadius: 8 }}>
+                    <span style={{ fontSize: 20 }}>{item.icon}</span>
+                    <span style={{ fontSize: 10, color: tab === item.id ? '#1d9e75' : '#aaa', fontWeight: tab === item.id ? 600 : 400 }}>{item.label}</span>
+                    {tab === item.id && <div style={{ width: 4, height: 4, borderRadius: '50%', background: '#1d9e75' }} />}
+                  </button>
+                ))}
+              </div>
+            </>
           )}
-
-          {/* Sync progress bar */}
-          {syncProgress !== null && (
-            <div style={{ height: 3, background: '#ddd' }}>
-              <div
-                style={{
-                  height: 3,
-                  width: `${syncProgress}%`,
-                  background: '#1d9e75',
-                  transition: 'width 0.4s',
-                }}
-              />
-            </div>
-          )}
-
-          {/* Pending banner */}
-          {pendingCount > 0 && syncProgress === null && (
-            <div
-              style={{
-                background: '#fef3dc',
-                padding: '6px 16px',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-            >
-              <span style={{ fontSize: 11, color: '#854f0b' }}>
-                {pendingCount} registro{pendingCount > 1 ? 's' : ''} pendiente
-                {pendingCount > 1 ? 's' : ''}
-              </span>
-              <button
-                onClick={handleSync}
-                style={{
-                  fontSize: 10,
-                  padding: '2px 10px',
-                  borderRadius: 20,
-                  background: '#854f0b',
-                  color: 'white',
-                  border: 'none',
-                  cursor: 'pointer',
-                }}
-              >
-                Sincronizar
-              </button>
-            </div>
-          )}
-
-          {/* Screen content — scrollable */}
-          <div
-            style={{
-              height: 560,
-              overflowY: 'auto',
-              background: '#f2f2f7',
-              paddingTop: 12,
-            }}
-          >
-            {tab === 'dashboard' && (
-              <ScreenDashboard records={records} expeditions={expeditions} />
-            )}
-            {tab === 'registros' && (
-              <ScreenRegistros
-                records={records}
-                setRecords={setRecords}
-                expeditions={expeditions}
-                showNotif={showNotif}
-              />
-            )}
-            {tab === 'expediciones' && (
-              <ScreenExpediciones
-                expeditions={expeditions}
-                setExpeditions={setExpeditions}
-                showNotif={showNotif}
-              />
-            )}
-            {tab === 'especies' && <ScreenEspecies records={records} />}
-          </div>
-
-          {/* Android bottom nav */}
-          <div
-            style={{
-              background: 'white',
-              borderTop: '0.5px solid #e0e0e0',
-              display: 'flex',
-              justifyContent: 'space-around',
-              padding: '8px 0 16px',
-            }}
-          >
-            {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => setTab(item.id)}
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column' as const,
-                  alignItems: 'center',
-                  gap: 3,
-                  background: 'transparent',
-                  border: 'none',
-                  cursor: 'pointer',
-                  padding: '4px 12px',
-                  borderRadius: 8,
-                }}
-              >
-                <span style={{ fontSize: 20 }}>{item.icon}</span>
-                <span
-                  style={{
-                    fontSize: 10,
-                    color: tab === item.id ? '#1d9e75' : '#aaa',
-                    fontWeight: tab === item.id ? 600 : 400,
-                  }}
-                >
-                  {item.label}
-                </span>
-                {tab === item.id && (
-                  <div
-                    style={{
-                      width: 4,
-                      height: 4,
-                      borderRadius: '50%',
-                      background: '#1d9e75',
-                    }}
-                  />
-                )}
-              </button>
-            ))}
-          </div>
 
           {/* Android home bar */}
-          <div
-            style={{
-              background: 'white',
-              display: 'flex',
-              justifyContent: 'center',
-              padding: '6px 0 10px',
-            }}
-          >
-            <div
-              style={{
-                width: 120,
-                height: 4,
-                background: '#ccc',
-                borderRadius: 4,
-              }}
-            />
+          <div style={{ background: isLocked ? '#111' : 'white', display: 'flex', justifyContent: 'center', padding: '10px 0', transition: 'background 0.3s' }}>
+            <div style={{ width: 120, height: 4, background: isLocked ? '#555' : '#ccc', borderRadius: 4 }} />
           </div>
+          
         </div>
       </div>
     </div>
