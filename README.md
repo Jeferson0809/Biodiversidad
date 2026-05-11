@@ -33,7 +33,7 @@ El proyecto se enmarca en una inversión de 80–100 millones de COP financiados
 |----|-------------|--------|
 | RNF1 | Eficiencia energética (interfaz liviana, sin animaciones pesadas) | ✅ Implementado |
 | RNF2 | Usabilidad para climas extremos (botones grandes, alto contraste) | ✅ Implementado |
-| RNF3 | Seguridad y privacidad (badges de estado de sincronización) | ⚠️ Prototipo |
+| RNF3 | Seguridad y privacidad (badges de estado de sincronización) | ✅ Implementad |
 
 ---
 
