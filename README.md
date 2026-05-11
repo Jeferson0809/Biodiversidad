@@ -1,7 +1,5 @@
 # Sistema de Monitoreo de Biodiversidad — Páramo de Santurbán
-**Proyecto:** CTeI-SGR-2024  
-**Versión:** 2.0  
-**Fecha:** Mayo 2026
+
 
 **Autores:**
 - Michael Alexander Aponte Rodriguez — 2222954
@@ -181,27 +179,3 @@ El modelo de datos implementado (Guardabosques → Expedición → RegistroBiol�
 7. **Registro de propiedad intelectual** ante la DNDA a nombre de la Entidad Territorial, garantizando que el software sea Bien Público escalable a otros páramos de Colombia sin costos de licenciamiento.
 
 ---
-
-## Metodología de desarrollo
-
-El proyecto siguió la metodología **Scrum** con sprints quincenales:
-
-- **Product Owner:** Representante del Ente Territorial
-- **Scrum Master:** Líder técnico
-- **Development Team:** Desarrolladores React/Kotlin, expertos GIS, diseñadores UI/UX
-- **Stakeholders:** Guardabosques y científicos del páramo
-
-Historia de usuario implementada en este sprint:
-> *"Como Guardabosques en zona remota, quiero capturar la ubicación de un frailejón afectado por plaga de forma offline, para que la información se sincronice automáticamente cuando regrese a la estación y el ente territorial pueda actuar."*
-
----
-
-## Propiedad intelectual
-
-Este software es desarrollado con recursos del Sistema General de Regalías (SGR) y debe registrarse como **Bien Público** ante la DNDA a nombre de la Entidad Territorial o Universidad ejecutora. Esto garantiza su escalabilidad a otros páramos de Colombia sin costos de licenciamiento, maximizando el retorno social de la inversión estatal.
-
----
-
-## Licencia
-
-Dominio público — Bien Público financiado con recursos SGR. Libre uso, modificación y distribución por entidades del Estado colombiano.
